@@ -9,11 +9,15 @@ TEMPLATE = app
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 INCLUDEPATH += source
+INCLUDEPATH += $$PWD/../cm_lib
+INCLUDEPATH += $$PWD/../cm_lib/source
 
 SOURCES += \
     source/main.cpp
 
 RESOURCES += views.qrc
+
+LIBS += -L$$PWD/../build/Qt_6_9_2_for_macOS-Debug/cm_lib -lcm-lib
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH = $$PWD

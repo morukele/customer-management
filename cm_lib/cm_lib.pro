@@ -13,15 +13,15 @@ CONFIG += c++14
 INCLUDEPATH += source
 
 SOURCES += \
+    controllers/master-controller.cpp \
     source/models/client.cpp \
-    cm_lib.cpp \
-    controllers/mastercontroller.cpp
+    cm_lib.cpp
 
 HEADERS += \
+    controllers/master-controller.h \
     source/models/client.h \
     source/cm_lib_global.h \
-    cm_lib.h \
-    controllers/mastercontroller.h
+    cm_lib.h
 
 # Default rules for deployment.
 unix {
