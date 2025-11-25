@@ -68,9 +68,14 @@ CMakeLists.txt.user*
 # Python byte code
 *.pyc
 
+# Build artificats
+# ----------------
+.qtcreator/
+.qtc_clangd/
+
 # Binaries
 # --------
-/binaries/
+binaries/*
 *.dll
 *.exe
 
