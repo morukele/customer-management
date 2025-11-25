@@ -8,4 +8,7 @@ CONFIG -= app_bundle
 TARGET = client-tests
 TEMPLATE = app
 
-SOURCES +=  tst_clienttests.cpp
+INCLUDEPATH += source
+
+SOURCES += \
+    source/models/client-tests.cpp

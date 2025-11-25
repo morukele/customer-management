@@ -10,14 +10,18 @@ CONFIG += c++14
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+INCLUDEPATH += source
+
 SOURCES += \
-    client.cpp \
-    cm_lib.cpp
+    source/models/client.cpp \
+    cm_lib.cpp \
+    controllers/mastercontroller.cpp
 
 HEADERS += \
-    client.h \
-    cm_lib_global.h \
-    cm_lib.h
+    source/models/client.h \
+    source/cm_lib_global.h \
+    cm_lib.h \
+    controllers/mastercontroller.h
 
 # Default rules for deployment.
 unix {
