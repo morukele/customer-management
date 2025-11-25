@@ -1,3 +1,6 @@
+include(../qmake-target-platform.pri)
+include(../qmake-destination-path.pri)
+
 QT -= gui
 
 TARGET = cm-lib
@@ -28,3 +31,10 @@ unix {
     target.path = /usr/lib
 }
 !isEmpty(target.path): INSTALLS += target
+
+DESTDIR = $$PWD/../binaries/$$DESTINATION_PATH
+OBJECTS_DIR = $$PWD/build/$$DESTINATION_PATH/.obj
+MOC_DIR = $$PWD/build/$$DESTINATION_PATH/.moc
+RCC_DIR = $$PWD/build/$$DESTINATION_PATH/.qrc
+UI_DIR = $$PWD/build/$$DESTINATION_PATH/.ui
+

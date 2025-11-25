@@ -1,3 +1,6 @@
+include(../qmake-target-platform.pri)
+include(../qmake-destination-path.pri)s
+
 QT += qml quick
 
 CONFIG += c++14
@@ -17,7 +20,7 @@ SOURCES += \
 
 RESOURCES += views.qrc
 
-LIBS += -L$$PWD/../build/Qt_6_9_2_for_macOS-Debug/cm_lib -lcm-lib
+LIBS += -L$$PWD/../binaries/$$DESTINATION_PATH -lcm-lib
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH = $$PWD
@@ -32,3 +35,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 DISTFILES += \
     MasterView.qml
+
+DESTDIR = $$PWD/../binaries/$$DESTINATION_PATH
+OBJECTS_DIR = $$PWD/build/$$DESTINATION_PATH/.obj
+MOC_DIR = $$PWD/build/$$DESTINATION_PATH/.moc
+RCC_DIR = $$PWD/build/$$DESTINATION_PATH/.qrc
+UI_DIR = $$PWD/build/$$DESTINATION_PATH/.uis
