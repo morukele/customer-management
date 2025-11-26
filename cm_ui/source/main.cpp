@@ -13,6 +13,7 @@ int main(int argc, char *argv[])
     // controller: register the master controller type
     // -----------------------------------------------
     qmlRegisterType<cm::controllers::MasterController>("CM", 1, 0, "MasterController");
+    qmlRegisterType<cm::controllers::NavigationController>("CM", 1, 0, "NavigationController");
     cm::controllers::MasterController masterController;
 
     QQmlApplicationEngine engine;
