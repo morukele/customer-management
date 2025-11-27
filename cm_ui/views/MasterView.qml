@@ -1,6 +1,8 @@
 import QtQuick 2.12
 import QtQuick.Window 2.12
 import QtQuick.Controls 2.2
+import assets 1.0
+import components 1.0
 
 Window {
     width: 1024
@@ -31,29 +33,7 @@ Window {
     }
     Component.onCompleted: contentFrame.replace("qrc:/views/DashboardView.qml")
 
-    Rectangle {
+    NavigationBar {
         id: navigationBar
-        anchors{
-            top: parent.top
-            bottom: parent.bottom
-            left: parent.left
-        }
-        width: 100
-        color: "#008000"
-
-        Column {
-            Button {
-                text: "Dashboard"
-                onClicked: masterController.ui_navigationController.goDashboardView()
-            }
-            Button {
-                text: "New Client"
-                onClicked: masterController.ui_navigationController.goCreateClientView()
-            }
-            Button {
-                text: "Find Client"
-                onClicked: masterController.ui_navigationController.goFindClientView()
-            }
-        }
     }
 }
