@@ -2,5 +2,6 @@
 
 namespace cm {
 namespace models {
+
     Client::Client() {}
 }}
