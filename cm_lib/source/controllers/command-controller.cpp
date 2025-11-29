@@ -15,15 +15,15 @@ namespace cm {
             : commandController(_commandController)
         {
             Command* createClientSaveCommand = new Command(
-                commandController, QChar( 0xf0c7 ), "Save" );
+                commandController, QChar( 0xf0c7 ), "Save" ); // create command
             QObject::connect( createClientSaveCommand, &Command::executed,
-        commandController, &CommandController::onCreateClientSaveExecuted );
-            createClientViewContextCommands.append(createClientSaveCommand);
+        commandController, &CommandController::onCreateClientSaveExecuted ); // set up command in QT GUI view
+            createClientViewContextCommands.append(createClientSaveCommand); // add command to the list of commands
         }
 
         CommandController* commandController{nullptr};
 
-        QList<Command*> createClientViewContextCommands{};
+        QList<Command*> createClientViewContextCommands{}; // this is a list, not a function
     };
 
     CommandController::CommandController(QObject *parent)
