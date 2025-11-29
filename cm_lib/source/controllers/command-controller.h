@@ -12,9 +12,11 @@ namespace cm {
     class CM_LIB_EXPORT CommandController : public QObject
     {
         Q_OBJECT
-        Q_PROPERTY(QQmlListProperty<cm::framework::Command>
-            ui_createClientViewContextCommands READ
-            ui_createClientViewContextCommands CONSTANT)
+        Q_PROPERTY( // This macro expects each keyword and value to appear on the same line
+            QQmlListProperty<cm::framework::Command> ui_createClientViewContextCommands
+            READ ui_createClientViewContextCommands
+            CONSTANT
+        )
     public:
         explicit CommandController(QObject *parent = nullptr);
         ~CommandController();

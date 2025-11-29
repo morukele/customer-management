@@ -16,8 +16,12 @@ namespace cm {
         {
             Command* createClientSaveCommand = new Command(
                 commandController, QChar( 0xf0c7 ), "Save" ); // create command
-            QObject::connect( createClientSaveCommand, &Command::executed,
-        commandController, &CommandController::onCreateClientSaveExecuted ); // set up command in QT GUI view
+            QObject::connect(
+                createClientSaveCommand,
+                &Command::executed,
+                commandController,
+                &CommandController::onCreateClientSaveExecuted
+            ); // set up command in QT GUI view
             createClientViewContextCommands.append(createClientSaveCommand); // add command to the list of commands
         }
 

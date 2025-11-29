@@ -10,10 +10,12 @@ namespace controllers {
             : masterController(_masterController)
         {
             navigationController = new NavigationController(masterController);
+            commandController = new CommandController(masterController);
         }
 
-        MasterController* masterController{nullptr};
+        MasterController* masterController{nullptr}; // nullptr is used to make the "empty" state explicit and safe.
         NavigationController* navigationController{nullptr};
+        CommandController* commandController{nullptr};
         QString welcomeMessage = "This is MasterController to Major Oghenemarho";
     };
 
@@ -30,6 +32,11 @@ namespace controllers {
     NavigationController* MasterController::navigationController()
     {
         return implementation->navigationController;
+    }
+
+    CommandController* MasterController::commandController()
+    {
+        return implementation->commandController;
     }
 
     const QString& MasterController::welcomeMessage() const

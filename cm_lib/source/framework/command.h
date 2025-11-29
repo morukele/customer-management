@@ -19,11 +19,12 @@ namespace cm {
         Q_PROPERTY(QString ui_description READ description CONSTANT)
         Q_PROPERTY(bool ui_canExecute READ canExecute NOTIFY canExecuteChanged)
     public:
-        explicit Command(QObject *parent = nullptr,
-                         const QString& iconCharacter = "",
-                         const QString& description = "",
-                         std::function<bool ()> canExecute = [] () {return true;}
-                         );
+        explicit Command(
+            QObject *parent = nullptr,
+            const QString& iconCharacter = "",
+            const QString& description = "",
+            std::function<bool ()> canExecute = [] () {return true;}
+        );
         ~Command(); // destructor
 
         const QString& iconCharacter() const;
