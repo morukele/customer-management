@@ -1,7 +1,7 @@
 #include "command.h"
 
 namespace cm {
-    namespace framework {
+namespace framework {
 
     class Command::Implementation
     {

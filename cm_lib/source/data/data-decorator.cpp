@@ -1,7 +1,7 @@
 #include "data-decorator.h"
 
 namespace cm {
-    namespace data {
+namespace data {
 
     class DataDecorator::Implementation
     {

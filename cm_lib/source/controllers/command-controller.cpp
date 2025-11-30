@@ -6,7 +6,7 @@
 using namespace cm::framework;
 
 namespace cm {
-    namespace controllers {
+namespace controllers {
 
     class CommandController::Implementation
     {

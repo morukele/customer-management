@@ -10,7 +10,7 @@
 #include <cm_lib_global.h>
 
 namespace cm {
-    namespace framework {
+namespace framework {
 
     class CM_LIB_EXPORT Command : public QObject
     {

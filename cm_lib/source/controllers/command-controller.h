@@ -8,7 +8,7 @@
 #include <framework/command.h>
 
 namespace cm {
-    namespace controllers {
+namespace controllers {
     class CM_LIB_EXPORT CommandController : public QObject
     {
         Q_OBJECT

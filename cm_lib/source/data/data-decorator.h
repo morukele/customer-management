@@ -9,7 +9,7 @@
 #include <cm_lib_global.h>
 
 namespace cm {
-    namespace data {
+namespace data {
 
     class Entity;
 
@@ -19,7 +19,7 @@ namespace cm {
         Q_PROPERTY( QString ui_label READ label CONSTANT )
     public:
         DataDecorator(
-            Entity* parent = nullptr,
+            Entity *parent = nullptr,
             const QString& key = "SomeItemKey",
             const QString& label = ""
         );
