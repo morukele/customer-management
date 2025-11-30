@@ -1,5 +1,5 @@
-#ifndef MASTERCONTROLLER_H
-#define MASTERCONTROLLER_H
+#ifndef MASTER_CONTROLLER_H
+#define MASTER_CONTROLLER_H
 
 #include <QObject>
 #include <QString>
@@ -32,4 +32,4 @@ namespace controllers {
     };
 }}
 
-#endif // MASTERCONTROLLER_H
+#endif // MASTER_CONTROLLER_H

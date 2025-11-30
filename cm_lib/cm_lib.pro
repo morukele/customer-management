@@ -18,6 +18,11 @@ INCLUDEPATH += source
 SOURCES += \
     source/controllers/command-controller.cpp \
     source/controllers/master-controller.cpp \
+    source/data/data-decorator.cpp \
+    source/data/date-time-decorator.cpp \
+    source/data/enumerator-decorator.cpp \
+    source/data/int-decorator.cpp \
+    source/data/string-decorator.cpp \
     source/framework/command.cpp \
     source/models/client.cpp \
     cm_lib.cpp
@@ -27,6 +32,11 @@ HEADERS += \
     source/controllers/command-controller.h \
     source/controllers/master-controller.h \
     source/controllers/navigation-controller.h \
+    source/data/data-decorator.h \
+    source/data/date-time-decorator.h \
+    source/data/enumerator-decorator.h \
+    source/data/int-decorator.h \
+    source/data/string-decorator.h \
     source/framework/command.h \
     source/models/client.h \
     source/cm_lib_global.h \
