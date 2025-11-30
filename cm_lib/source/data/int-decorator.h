@@ -12,12 +12,12 @@
 
 namespace cm {
 namespace data {
-class Entity;
+    class Entity;
 
     class CM_LIB_EXPORT IntDecorator : public DataDecorator
     {
         Q_OBJECT
-        Q_PROPERTY(QString ui_value READ value WRITE setValue NOTIFY valueChange)
+        Q_PROPERTY(int ui_value READ value WRITE setValue NOTIFY valueChanged)
     public:
         IntDecorator(
             Entity *parentEntity = nullptr,
