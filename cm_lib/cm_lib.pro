@@ -20,6 +20,7 @@ SOURCES += \
     source/controllers/master-controller.cpp \
     source/data/data-decorator.cpp \
     source/data/date-time-decorator.cpp \
+    source/data/entity.cpp \
     source/data/enumerator-decorator.cpp \
     source/data/int-decorator.cpp \
     source/data/string-decorator.cpp \
@@ -34,6 +35,7 @@ HEADERS += \
     source/controllers/navigation-controller.h \
     source/data/data-decorator.h \
     source/data/date-time-decorator.h \
+    source/data/entity.h \
     source/data/enumerator-decorator.h \
     source/data/int-decorator.h \
     source/data/string-decorator.h \
