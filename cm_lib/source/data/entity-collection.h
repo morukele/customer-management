@@ -4,8 +4,8 @@
 #include <QObject>
 #include <QJsonArray>
 #include <QJsonValue>
+#include <QJsonObject>
 
-#include <QtCore/qjsonobject.h>
 #include <cm_lib_global.h>
 
 namespace cm {
@@ -82,10 +82,44 @@ namespace data {
             }
         }
 
+        std::vector<Entity*> baseEntities() override
+        {
+            std::vector<Entity*> returnValue;
+            for (T* entity : collection) {
+                returnValue.push_back(entity);
+            }
+            return returnValue;
+        }
+
+        QList<T*>& derivedEntities()
+        {
+            return collection;
+        }
+
+        T* addEntity(T* entity)
+        {
+            if(!collection.contains(entity)) {
+                collection.append(entity);
+                EntityCollectionObject::collectionChanged();
+            }
+            return entity;
+        }
 
     private:
         QList<T*> collection;
     };
+
+    template <class T>
+    QList<T*>& EntityCollectionBase::derivedEntities()
+    {
+        return dynamic_cast<const EntityCollection<T>&>(*this).derivedEntities();
+    }
+
+    template <class T>
+    T* EntityCollectionBase::addEntity(T* entity)
+    {
+        return dynamic_cast<const EntityCollection<T>&>(*this).addEntity(entity);
+    }
 }}
 
 #endif // ENTITY_COLLECTION_H

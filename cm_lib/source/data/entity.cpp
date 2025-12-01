@@ -1,5 +1,7 @@
 #include "entity.h"
 
+#include <QJsonArray>
+
 namespace cm {
 namespace data {
 
@@ -16,6 +18,7 @@ namespace data {
         QString key;
         std::map<QString, Entity*> childEntities;
         std::map<QString, DataDecorator*> dataDecorators;
+        std::map<QString, EntityCollectionBase*> childCollections;
     };
 
     Entity::Entity(QObject* parent, const QString& key)
@@ -71,6 +74,10 @@ namespace data {
         for (auto &childEntityPair : implementation->childEntities) {
             childEntityPair.second->update(jsonObject.value(childEntityPair.first).toObject());
         }
+        // Update child collections
+        for (auto &childCollectionPair : implementation->childCollections) {
+            childCollectionPair.second->update(jsonObject.value(childCollectionPair.first).toArray());
+        }
     }
 
     QJsonObject Entity::toJson() const
@@ -84,6 +91,25 @@ namespace data {
         for (auto &childEntityPair : implementation->childEntities) {
             returnValue.insert(childEntityPair.first, childEntityPair.second->toJson());
         }
+        // Add child collections
+        for (auto &childCollectionPair : implementation->childCollections) {
+            QJsonArray entityArray;
+            for (Entity* entity : childCollectionPair.second->baseEntities()){
+                entityArray.append(entity->toJson());
+            }
+            returnValue.insert(childCollectionPair.first, entityArray);
+        }
+
         return returnValue;
+    }
+
+    EntityCollectionBase* Entity::addChildCollection(EntityCollectionBase* entityCollection)
+    {
+        if(implementation->childCollections.find(entityCollection->getKey())
+            == std::end(implementation->childCollections)){
+            implementation->childCollections[entityCollection->getKey()] = entityCollection;
+            emit childCollectionsChanged(entityCollection->getKey());
+        }
+        return entityCollection;
     }
 }}
