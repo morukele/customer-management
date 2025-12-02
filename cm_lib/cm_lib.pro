@@ -25,8 +25,11 @@ SOURCES += \
     source/data/int-decorator.cpp \
     source/data/string-decorator.cpp \
     source/framework/command.cpp \
+    source/models/address.cpp \
+    source/models/appointment.cpp \
     source/models/client.cpp \
-    cm_lib.cpp
+    cm_lib.cpp \
+    source/models/contact.cpp
 
 HEADERS += \
     source/controllers/command-controller.h \
@@ -41,9 +44,12 @@ HEADERS += \
     source/data/int-decorator.h \
     source/data/string-decorator.h \
     source/framework/command.h \
+    source/models/address.h \
+    source/models/appointment.h \
     source/models/client.h \
     source/cm_lib_global.h \
-    cm_lib.h
+    cm_lib.h \
+    source/models/contact.h
 
 # Default rules for deployment.
 unix {
