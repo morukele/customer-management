@@ -2,7 +2,7 @@
 #define TEST_SUITE_H
 
 #include <QObject>
-#include <Qstring>
+#include <QString>
 #include <QtTest/QtTest>
 
 #include <vector>

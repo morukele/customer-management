@@ -17,6 +17,10 @@ INCLUDEPATH += source \
 
 SOURCES += \
     source/controllers/master-controller-tests.cpp \
+    source/data/date-time-decorator-tests.cpp \
+    source/data/enumerator-decorator-tests.cpp \
+    source/data/int-decorator-tests.cpp \
+    source/data/string-decorator-tests.cpp \
     source/main.cpp \
     source/models/client-tests.cpp \
     source/test-suite.cpp
@@ -31,4 +35,8 @@ LIBS += -L$$PWD/../binaries/$$DESTINATION_PATH -lcm-lib
 
 HEADERS += source \
     source/controllers/master-controller-tests.h \
+    source/data/date-time-decorator-tests.h \
+    source/data/enumerator-decorator-tests.h \
+    source/data/int-decorator-tests.h \
+    source/data/string-decorator-tests.h \
     source/test-suite.h
