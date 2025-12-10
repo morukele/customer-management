@@ -12,9 +12,12 @@ CONFIG += qtmoc
 TARGET = client-tests
 TEMPLATE = app
 
-INCLUDEPATH += source
+INCLUDEPATH += source \
+    ../cm_lib/source
 
 SOURCES += \
+    source/controllers/master-controller-tests.cpp \
+    source/main.cpp \
     source/models/client-tests.cpp \
     source/test-suite.cpp
 
@@ -26,5 +29,6 @@ UI_DIR = $$PWD/build/$$DESTINATION_PATH/.ui
 
 LIBS += -L$$PWD/../binaries/$$DESTINATION_PATH -lcm-lib
 
-HEADERS += \
+HEADERS += source \
+    source/controllers/master-controller-tests.h \
     source/test-suite.h

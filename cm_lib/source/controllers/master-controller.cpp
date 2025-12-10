@@ -19,7 +19,7 @@ namespace controllers {
         MasterController* masterController{nullptr}; // nullptr is used to make the "empty" state explicit and safe.
         NavigationController* navigationController{nullptr};
         CommandController* commandController{nullptr};
-        QString welcomeMessage = "This is MasterController to Major Oghenemarho";
+        QString welcomeMessage = "Welcome to the Client Management system!";
         Client* newClient{nullptr};
     };
 
