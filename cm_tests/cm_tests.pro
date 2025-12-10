@@ -15,7 +15,8 @@ TEMPLATE = app
 INCLUDEPATH += source
 
 SOURCES += \
-    source/models/client-tests.cpp
+    source/models/client-tests.cpp \
+    source/test-suite.cpp
 
 DESTDIR = $$PWD/../binaries/$$DESTINATION_PATH
 OBJECTS_DIR = $$PWD/build/$$DESTINATION_PATH/.obj
@@ -24,3 +25,6 @@ RCC_DIR = $$PWD/build/$$DESTINATION_PATH/.qrc
 UI_DIR = $$PWD/build/$$DESTINATION_PATH/.ui
 
 LIBS += -L$$PWD/../binaries/$$DESTINATION_PATH -lcm-lib
+
+HEADERS += \
+    source/test-suite.h

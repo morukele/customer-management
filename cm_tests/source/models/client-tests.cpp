@@ -16,6 +16,7 @@ private slots:
     void cleanupTestCase();
     void cleanup();
     void test_case1();
+    void test_case2();
 };
 
 ClientTests::ClientTests() {}
@@ -43,6 +44,8 @@ void ClientTests::cleanup()
 }
 
 void ClientTests::test_case1() {}
+
+void ClientTests::test_case2() {}
 
 QTEST_APPLESS_MAIN(ClientTests)
 
