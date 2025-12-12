@@ -39,4 +39,5 @@ HEADERS += source \
     source/data/enumerator-decorator-tests.h \
     source/data/int-decorator-tests.h \
     source/data/string-decorator-tests.h \
+    source/models/client-tests.h \
     source/test-suite.h
