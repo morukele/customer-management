@@ -1,6 +1,11 @@
 #include "entity.h"
 
 #include <QJsonArray>
+#include <QUuid>
+#include <controllers/i-database-controller.h>
+#include <data/string-decorator.h>
+
+using namespace cm::controllers;
 
 namespace cm {
 namespace data {
@@ -11,11 +16,14 @@ namespace data {
         Implementation(Entity* _entity, const QString& _key)
             : entity(_entity)
             , key(_key)
+            , id(QUuid::createUuid().toString())
         {
         }
 
         Entity* entity{nullptr};
         QString key;
+        QString id;
+        StringDecorator* primaryKey{nullptr};
         std::map<QString, Entity*> childEntities;
         std::map<QString, DataDecorator*> dataDecorators;
         std::map<QString, EntityCollectionBase*> childCollections;
@@ -37,9 +45,23 @@ namespace data {
     {
     }
 
+    const QString& Entity::id() const
+    {
+        if(implementation->primaryKey != nullptr && !implementation->primaryKey->value().isEmpty())
+        {
+            return implementation->primaryKey->value();
+        }
+        return implementation->id;
+    }
+
     const QString& Entity::key() const
     {
         return implementation->key;
+    }
+
+    void Entity::setPrimaryKey(StringDecorator* primaryKey)
+    {
+        implementation->primaryKey = primaryKey;
     }
 
     Entity* Entity::addChild(Entity* entity, const QString& key)
@@ -65,8 +87,10 @@ namespace data {
 
     void Entity::update(const QJsonObject& jsonObject)
     {
+        if (jsonObject.contains("id")) {
+            implementation->id = jsonObject.value("id").toString();
+        }
         // Update data decorators
-        // NOTE: preferable to use auto in range for loop.
         for (auto &dataDecoratorPair : implementation->dataDecorators) {
             dataDecoratorPair.second->update(jsonObject);
         }
@@ -83,6 +107,7 @@ namespace data {
     QJsonObject Entity::toJson() const
     {
         QJsonObject returnValue;
+        returnValue.insert("id", implementation->id);
         // Add data decorators
         for (auto &dataDecoratorPair : implementation->dataDecorators) {
             returnValue.insert(dataDecoratorPair.first, dataDecoratorPair.second->jsonValue());

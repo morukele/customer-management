@@ -63,6 +63,16 @@ namespace controllers {
         }
     };
 
+    DatabaseController::DatabaseController(QObject* parent)
+        : IDatabaseController(parent)
+    {
+        implementation.reset(new Implementation(this));
+    }
+
+    DatabaseController::~DatabaseController()
+    {
+    }
+
     bool DatabaseController::createRow(const QString& tableName, const QString& id, const QJsonObject& jsonObject) const
     {
         if (tableName.isEmpty()) return false;
@@ -81,5 +91,96 @@ namespace controllers {
         if (!query.exec()) return false;
 
         return query.numRowsAffected() > 0;
+    }
+
+    bool DatabaseController::deleteRow(const QString& tableNale, const QString& id) const
+    {
+        if (tableNale.isEmpty()) return false;
+        if(id.isEmpty()) return false;
+
+        QSqlQuery query(implementation->database);
+
+        QString sqlStatement = "DELETE FROM " + tableNale + " WHERE id=:id";
+
+        if(!query.prepare(sqlStatement)) return false;
+
+        query.bindValue(":id", QVariant(id));
+
+        if(!query.exec()) return false;
+
+        return query.numRowsAffected() > 0;
+    }
+
+    QJsonObject DatabaseController::readRow(const QString& tableName, const QString& id) const
+    {
+        if (tableName.isEmpty()) return {};
+        if (id.isEmpty()) return {};
+
+        QSqlQuery query(implementation->database);
+
+        QString sqlStatement = "SELECT json FROM " + tableName + " WHERE id=:id";
+
+        if (!query.prepare(sqlStatement)) return {};
+
+        query.bindValue(":id", QVariant(id));
+
+        if (!query.exec()) return {};
+
+        if (!query.first()) return {};
+
+        auto json = query.value(0).toByteArray();
+        auto jsonDocument = QJsonDocument::fromJson(json);
+
+        if (!jsonDocument.isObject()) return {};
+
+        return jsonDocument.object();
+    }
+
+    bool DatabaseController::updateRow(const QString& tableName, const QString& id, const QJsonObject& jsonObject) const
+    {
+        if (tableName.isEmpty()) return false;
+        if (id.isEmpty()) return false;
+        if (jsonObject.isEmpty()) return false;
+
+        QSqlQuery query(implementation->database);
+
+        QString sqlStatement = "UPDATE " + tableName + " SET json=:json WHERE id=:id";
+
+        if (!query.prepare(sqlStatement)) return false;
+
+        query.bindValue(":id", QVariant(id));
+        query.bindValue(":json", QVariant(QJsonDocument(jsonObject).toJson(QJsonDocument::Compact)));
+
+        if (!query.exec()) return false;
+
+        return query.numRowsAffected() > 0;
+    }
+
+    QJsonArray DatabaseController::find(const QString& tableName, const QString& searchText) const
+    {
+        if (tableName.isEmpty()) return {};
+        if (searchText.isEmpty()) return {};
+
+        QSqlQuery query(implementation->database);
+
+        QString sqlStatement = "SELECT json FROM " + tableName + " WHERE LOWER(json) LIKE :searchText";
+
+        if (!query.prepare(sqlStatement)) return {};
+
+        query.bindValue(":searchText", QVariant("%" + searchText.toLower() + "%"));
+
+        if (!query.exec()) return {};
+
+        QJsonArray returnValue;
+
+        while (query.next()) {
+            auto json = query.value(0).toByteArray();
+            auto jsonDocument = QJsonDocument::fromJson(json);
+            if (jsonDocument.isObject()) {
+                returnValue.append(jsonDocument.object());
+            }
+        }
+
+        return returnValue;
     }
 }}

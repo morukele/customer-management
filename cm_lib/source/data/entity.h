@@ -6,7 +6,11 @@
 
 #include <cm_lib_global.h>
 #include <data/data-decorator.h>
+#include <data/string-decorator.h>
 #include <data/entity-collection.h>
+#include <controllers/i-database-controller.h>
+
+using namespace cm::controllers;
 
 namespace cm {
 namespace data {
@@ -20,7 +24,9 @@ namespace data {
         virtual ~Entity(); // virtual because it is a base class
 
     public:
+        const QString& id() const;
         const QString& key() const;
+        void setPrimaryKey(StringDecorator* primaryKey);
         void update(const QJsonObject& jsonObject);
         QJsonObject toJson() const;
 
