@@ -22,7 +22,7 @@ namespace models {
         void toJson_withDefaultProperties_constructsJson();
         void toJson_withSetProperties_constructsJson();
         void update_givenJsonObject_updatesProperties();
-        void update_givenEmptyJsonObject_updatedPropertiesToDefaults();
+        void update_givenEmptyJsonObject_updatesPropertiesToDefaults();
 
     private:
         void verifyBillingAddress(const QJsonObject& jsonObject);
@@ -53,18 +53,18 @@ namespace models {
                 "street": "Billing Street"
             },
             "appointments": [
-                {"startAt": "2017-08-20T12:45:00", "endAt": "2017-08-20T13:00:00", "notes": "Test appointment 1"},
-                {"startAt": "2017-08-21T10:30:00", "endAt": "2017-08-21T11:30:00", "notes": "Test appointment 2"},
+             {"startAt": "2017-08-20T12:45:00", "endAt": "2017-08-20T13:00:00.00", "notes": "Test appointment 1"},
+             {"startAt": "2017-08-21T10:30:00", "endAt": "2017-08-21T11:30:00.00", "notes": "Test appointment 2"}
             ],
             "contacts": [
                 {"contactType": 2, "address":"email@test.com"},
-                {"contactType": 1, "address":"012345678"},
+                {"contactType": 1, "address":"012345678"}
             ],
             "supplyAddress": {
                 "building": "Supply Building",
                 "city": "Supply City",
                 "postcode": "Supply Postcode",
-                "street": "Supply Street",
+                "street": "Supply Street"
             }
         })";
     };
