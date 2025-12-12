@@ -18,6 +18,7 @@ namespace data {
     private slots:
         void constructor_givenNoParameters_setsDefaultProperties();
         void constructor_givenParameters_setsProperties();
+        void value_prettyString_returnsPrettyString();
         void setValue_givenNewValue_updatesValueAndEmitsSignal();
         void setValue_givenSameValue_takesNoAction();
         void jsonValue_whenDefaultValue_returnsJson();
