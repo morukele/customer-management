@@ -2,6 +2,7 @@ include(../qmake-target-platform.pri)
 include(../qmake-destination-path.pri)
 
 QT -= gui
+QT += sql
 
 TARGET = cm-lib
 TEMPLATE = lib
@@ -17,6 +18,7 @@ INCLUDEPATH += source
 
 SOURCES += \
     source/controllers/command-controller.cpp \
+    source/controllers/database-controller.cpp \
     source/controllers/master-controller.cpp \
     source/data/data-decorator.cpp \
     source/data/date-time-decorator.cpp \
@@ -34,6 +36,8 @@ SOURCES += \
 HEADERS += \
     source/controllers/command-controller.h \
     source/controllers/command-controller.h \
+    source/controllers/database-controller.h \
+    source/controllers/i-database-controller.h \
     source/controllers/master-controller.h \
     source/controllers/navigation-controller.h \
     source/data/data-decorator.h \
