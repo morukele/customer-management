@@ -4,6 +4,7 @@
 #include <QDebug>
 
 using namespace cm::framework;
+using namespace cm::models;
 
 namespace cm {
 namespace controllers {
@@ -11,8 +12,10 @@ namespace controllers {
     class CommandController::Implementation
     {
     public:
-        Implementation(CommandController* _commandController)
+        Implementation(CommandController* _commandController, IDatabaseController* _databaseController, Client* _newClient)
             : commandController(_commandController)
+            , databaseController(_databaseController)
+            , newClient(_newClient)
         {
             Command* createClientSaveCommand = new Command(
                 commandController, QChar( 0xf0c7 ), "Save" ); // create command
@@ -26,14 +29,15 @@ namespace controllers {
         }
 
         CommandController* commandController{nullptr};
-
         QList<Command*> createClientViewContextCommands{}; // this is a list, not a function
+        IDatabaseController *databaseController{nullptr};
+        Client *newClient{nullptr};
     };
 
-    CommandController::CommandController(QObject *parent)
+    CommandController::CommandController(QObject *parent, IDatabaseController* databaseController, Client* newClient)
         : QObject{parent}
     {
-        implementation.reset(new Implementation(this));
+        implementation.reset(new Implementation(this, databaseController, newClient));
     }
 
     CommandController::~CommandController()
@@ -48,5 +52,13 @@ namespace controllers {
     void CommandController::onCreateClientSaveExecuted()
     {
         qDebug() << "You executed the Save command!";
+
+        implementation->databaseController->createRow(
+            implementation->newClient->key(),
+            implementation->newClient->id(),
+            implementation->newClient->toJson()
+        );
+
+        qDebug() << "New client saved.";
     }
 }}

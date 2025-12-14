@@ -5,7 +5,9 @@
 #include <QtQml/QQmlListProperty>
 
 #include <cm_lib_global.h>
+#include <controllers/i-database-controller.h>
 #include <framework/command.h>
+#include <models/client.h>
 
 namespace cm {
 namespace controllers {
@@ -18,7 +20,7 @@ namespace controllers {
             CONSTANT
         )
     public:
-        explicit CommandController(QObject *parent = nullptr);
+        explicit CommandController(QObject *_parent = nullptr, IDatabaseController *databaseController = nullptr, models::Client *newClient = nullptr);
         ~CommandController();
 
         QQmlListProperty<framework::Command> ui_createClientViewContextCommands();

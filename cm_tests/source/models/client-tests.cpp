@@ -144,7 +144,9 @@ namespace models {
         QCOMPARE(testClient.id().right(1), QString("}"));
 
         // Using regular expression pattern matching
-        QVERIFY(QRegularExpression("\\{.{8}-(.{4})-(.{4})-(.{4})-(.{12})\\}").match(testClient.id()).hasMatch());
+        QVERIFY(QRegularExpression("\\{.{8}-(.{4})-(.{4})-(.{4})-(.{12})\\}")
+                    .match(testClient.id())
+                    .hasMatch());
     }
 
     void ClientTests::id_givenPrimaryKeyWithValue_returnsPrimaryKey()
