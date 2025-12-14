@@ -29,6 +29,7 @@ SOURCES += \
     source/framework/command.cpp \
     source/models/address.cpp \
     source/models/appointment.cpp \
+    source/models/client-search.cpp \
     source/models/client.cpp \
     cm_lib.cpp \
     source/models/contact.cpp
@@ -50,6 +51,7 @@ HEADERS += \
     source/framework/command.h \
     source/models/address.h \
     source/models/appointment.h \
+    source/models/client-search.h \
     source/models/client.h \
     source/cm_lib_global.h \
     cm_lib.h \
