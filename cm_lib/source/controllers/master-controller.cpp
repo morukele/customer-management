@@ -11,16 +11,21 @@ namespace controllers {
         Implementation(MasterController* _masterController)
             : masterController(_masterController)
         {
+            databaseController = new DatabaseController(masterController);
             navigationController = new NavigationController(masterController);
-            commandController = new CommandController(masterController);
             newClient = new Client(masterController);
+
+            // Initialise this last
+            // --------------------
+            commandController = new CommandController(masterController, databaseController, newClient);
         }
 
-        MasterController* masterController{nullptr}; // nullptr is used to make the "empty" state explicit and safe.
-        NavigationController* navigationController{nullptr};
+        MasterController* masterController{nullptr};
         CommandController* commandController{nullptr};
-        QString welcomeMessage = "Welcome to the Client Management system!";
+        DatabaseController* databaseController{nullptr};
+        NavigationController* navigationController{nullptr};
         Client* newClient{nullptr};
+        QString welcomeMessage = "Welcome to the Client Management system!";
     };
 
     MasterController::MasterController(QObject *parent)
@@ -31,6 +36,11 @@ namespace controllers {
 
     MasterController::~MasterController()
     {
+    }
+
+    DatabaseController* MasterController::databaseController()
+    {
+        return implementation->databaseController;
     }
 
     NavigationController* MasterController::navigationController()

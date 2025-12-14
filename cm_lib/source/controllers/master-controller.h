@@ -8,8 +8,7 @@
 #include <cm_lib_global.h>
 #include <controllers/navigation-controller.h>
 #include <controllers/command-controller.h>
-
-using namespace cm::models;
+#include <controllers/database-controller.h>
 
 namespace cm {
 namespace controllers {
@@ -20,14 +19,17 @@ namespace controllers {
         Q_PROPERTY(QString ui_welcomeMessage READ welcomeMessage CONSTANT)
         Q_PROPERTY(cm::controllers::NavigationController* ui_navigationController READ navigationController CONSTANT)
         Q_PROPERTY(cm::controllers::CommandController* ui_commandController READ commandController CONSTANT)
+        Q_PROPERTY(cm::controllers::DatabaseController* ui_databaseController READ databaseController CONSTANT)
         Q_PROPERTY(cm::models::Client* ui_newClient READ newClient CONSTANT)
 
     public:
         explicit MasterController(QObject *parent = nullptr);
         ~MasterController();
-        NavigationController* navigationController();
+
         CommandController* commandController();
-        Client* newClient();
+        DatabaseController* databaseController();
+        NavigationController* navigationController();
+        models::Client* newClient();
         const QString& welcomeMessage() const;
 
     private:

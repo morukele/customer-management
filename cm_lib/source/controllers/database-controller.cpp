@@ -1,16 +1,18 @@
 #include "database-controller.h"
 
+#include <QDebug>
+#include <QJsonDocument>
 #include <QSqlDatabase>
 #include <QSqlQuery>
 
 namespace cm {
 namespace controllers {
 
-    class DatabaseController::Implementation
-    {
+class DatabaseController::Implementation
+{
     public:
         Implementation(DatabaseController* _databaseController)
-            : databaseController(_databaseController)
+        : databaseController(_databaseController)
         {
             if (initialise()) {
                 qDebug() << "Database created using Sqlite version: " + sqliteVersion();
@@ -30,14 +32,14 @@ namespace controllers {
     private:
         bool initialise()
         {
-            database = QSqlDatabase::addDatabase("QSALITE", "cm");
-            database.setDatabaseName("cm.sqlite");
+            database = QSqlDatabase::addDatabase("QSQLITE", "cm");
+            database.setDatabaseName( "cm.sqlite" );
             return database.open();
         }
 
         bool createTables()
         {
-            return createJsonTable("client");
+            return createJsonTable( "client" );
         }
 
         bool createJsonTable(const QString& tableName) const
@@ -48,7 +50,6 @@ namespace controllers {
             if (!query.prepare(sqlStatement)) return false;
 
             return query.exec();
-
         }
 
         QString sqliteVersion() const
@@ -62,6 +63,9 @@ namespace controllers {
             return QString::number(-1);
         }
     };
+    }
+
+    namespace controllers {
 
     DatabaseController::DatabaseController(QObject* parent)
         : IDatabaseController(parent)
@@ -81,34 +85,62 @@ namespace controllers {
 
         QSqlQuery query(implementation->database);
 
-        QString sqlStatement = "INSERT OR REPLACE INTO " + tableName + "(id, json) VALUES (:id, :json)";
+        QString sqlStatement = "INSERT OR REPLACE INTO " + tableName + " (id, json) VALUES (:id, :json)";
 
-        if(!query.prepare(sqlStatement)) return false;
+        if (!query.prepare(sqlStatement)) return false;
 
         query.bindValue(":id", QVariant(id));
         query.bindValue(":json", QVariant(QJsonDocument(jsonObject).toJson(QJsonDocument::Compact)));
 
-        if (!query.exec()) return false;
+        if(!query.exec()) return false;
 
         return query.numRowsAffected() > 0;
     }
 
-    bool DatabaseController::deleteRow(const QString& tableNale, const QString& id) const
+    bool DatabaseController::deleteRow(const QString& tableName, const QString& id) const
     {
-        if (tableNale.isEmpty()) return false;
-        if(id.isEmpty()) return false;
+        if (tableName.isEmpty()) return false;
+        if (id.isEmpty()) return false;
 
         QSqlQuery query(implementation->database);
 
-        QString sqlStatement = "DELETE FROM " + tableNale + " WHERE id=:id";
+        QString sqlStatement = "DELETE FROM " + tableName + " WHERE id=:id";
 
-        if(!query.prepare(sqlStatement)) return false;
+        if (!query.prepare(sqlStatement)) return false;
 
         query.bindValue(":id", QVariant(id));
 
         if(!query.exec()) return false;
 
         return query.numRowsAffected() > 0;
+    }
+
+    QJsonArray DatabaseController::find(const QString& tableName, const QString& searchText) const
+    {
+        if (tableName.isEmpty()) return {};
+        if (searchText.isEmpty()) return {};
+
+        QSqlQuery query(implementation->database);
+
+        QString sqlStatement = "SELECT json FROM " + tableName + " where lower(json) like :searchText";
+
+        if (!query.prepare(sqlStatement)) return {};
+
+        query.bindValue(":searchText", QVariant("%" + searchText.toLower() + "%"));
+
+        if (!query.exec()) return {};
+
+        QJsonArray returnValue;
+
+        while ( query.next() ) {
+            auto json = query.value(0).toByteArray();
+            auto jsonDocument = QJsonDocument::fromJson(json);
+            if (jsonDocument.isObject()) {
+                returnValue.append(jsonDocument.object());
+            }
+        }
+
+        return returnValue;
     }
 
     QJsonObject DatabaseController::readRow(const QString& tableName, const QString& id) const
@@ -151,36 +183,8 @@ namespace controllers {
         query.bindValue(":id", QVariant(id));
         query.bindValue(":json", QVariant(QJsonDocument(jsonObject).toJson(QJsonDocument::Compact)));
 
-        if (!query.exec()) return false;
+        if(!query.exec()) return false;
 
         return query.numRowsAffected() > 0;
-    }
-
-    QJsonArray DatabaseController::find(const QString& tableName, const QString& searchText) const
-    {
-        if (tableName.isEmpty()) return {};
-        if (searchText.isEmpty()) return {};
-
-        QSqlQuery query(implementation->database);
-
-        QString sqlStatement = "SELECT json FROM " + tableName + " WHERE LOWER(json) LIKE :searchText";
-
-        if (!query.prepare(sqlStatement)) return {};
-
-        query.bindValue(":searchText", QVariant("%" + searchText.toLower() + "%"));
-
-        if (!query.exec()) return {};
-
-        QJsonArray returnValue;
-
-        while (query.next()) {
-            auto json = query.value(0).toByteArray();
-            auto jsonDocument = QJsonDocument::fromJson(json);
-            if (jsonDocument.isObject()) {
-                returnValue.append(jsonDocument.object());
-            }
-        }
-
-        return returnValue;
     }
 }}

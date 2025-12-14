@@ -10,14 +10,31 @@ Window {
     visible: true
     title: qsTr("Client Management")
 
+    Component.onCompleted: contentFrame.replace("qrc:/views/DashboardView.qml")
+
     // Wire up view to react to navigation signals
     Connections {
         target: masterController.ui_navigationController
         // These are slots
-        onGoCreateClientView: contentFrame.replace("qrc:/views/CreateClientView.qml")
-        onGoDashboardView: contentFrame.replace("qrc:/views/DashboardView.qml")
-        onGoEditClientView: contentFrame.replace("qrc:/views/EditClientView.qml", {selectedClient: client})
-        onGoFindClientView: contentFrame.replace("qrc:/views/FindClientView.qml")
+        function onGoCreateClientView() {
+            contentFrame.replace("qrc:/views/CreateClientView.qml")
+        }
+
+        function onGoDashboardView() {
+            contentFrame.replace("qrc:/views/DashboardView.qml")
+        }
+
+        function onGoEditClientView(client) {
+            contentFrame.replace("qrc:/views/EditClientView.qml", {selectedClient: client})
+        }
+
+        function onGoFindClientView() {
+            contentFrame.replace("qrc:/views/FindClientView.qml")
+        }
+    }
+
+    NavigationBar {
+        id: navigationBar
     }
 
     StackView {
@@ -30,10 +47,5 @@ Window {
         }
         clip: true
         initialItem: "qrc:/views/SplashView.qml"
-    }
-    Component.onCompleted: contentFrame.replace("qrc:/views/DashboardView.qml")
-
-    NavigationBar {
-        id: navigationBar
     }
 }

@@ -24,7 +24,6 @@ int main(int argc, char *argv[])
     qmlRegisterType<cm::controllers::MasterController>("CM", 1, 0, "MasterController");
     qmlRegisterType<cm::controllers::NavigationController>("CM", 1, 0, "NavigationController");
     qmlRegisterType<cm::controllers::CommandController>("CM", 1, 0, "CommandController");
-    qmlRegisterType<cm::framework::Command>("CM", 1, 0, "Command");
 
     // model: register the models and data type
     //-----------------------------------------
@@ -32,10 +31,15 @@ int main(int argc, char *argv[])
     qmlRegisterType<cm::data::EnumeratorDecorator>("CM", 1, 0, "EnumeratorDecorator");
     qmlRegisterType<cm::data::IntDecorator>("CM", 1, 0, "IntDecorator");
     qmlRegisterType<cm::data::StringDecorator>("CM", 1, 0, "StringDecorator");
+
     qmlRegisterType<cm::models::Address>("CM", 1, 0, "Address");
     qmlRegisterType<cm::models::Appointment>("CM", 1, 0, "Appointment");
     qmlRegisterType<cm::models::Client>("CM", 1, 0, "Client");
     qmlRegisterType<cm::models::Contact>("CM", 1, 0, "Contact");
+
+    // command: register the command models and data types
+    //----------------------------------------------------
+    qmlRegisterType<cm::framework::Command>("CM", 1, 0, "Command");
 
     cm::controllers::MasterController masterController;
 

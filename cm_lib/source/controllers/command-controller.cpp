@@ -12,15 +12,16 @@ namespace controllers {
     class CommandController::Implementation
     {
     public:
-        Implementation(CommandController* _commandController, IDatabaseController* _databaseController, Client* _newClient)
+        Implementation(CommandController* _commandController,
+            IDatabaseController* _databaseController,
+            Client* _newClient
+        )
             : commandController(_commandController)
             , databaseController(_databaseController)
             , newClient(_newClient)
         {
-            Command* createClientSaveCommand = new Command(
-                commandController, QChar( 0xf0c7 ), "Save" ); // create command
-            QObject::connect(
-                createClientSaveCommand,
+            Command* createClientSaveCommand = new Command(commandController, QChar( 0xf0c7 ), "Save" ); // create command
+            QObject::connect(createClientSaveCommand,
                 &Command::executed,
                 commandController,
                 &CommandController::onCreateClientSaveExecuted
