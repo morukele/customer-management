@@ -5,7 +5,7 @@ using namespace cm::data;
 namespace cm {
 namespace models {
     Client::Client(QObject* parent)
-        : Entity(parent, "clinet")
+        : Entity(parent, "client")
     {
         reference = static_cast<StringDecorator*>(addDataItem(new StringDecorator(this, "reference", "Client Ref")));
         name = static_cast<StringDecorator*>(addDataItem(new StringDecorator(this, "name", "Name")));
