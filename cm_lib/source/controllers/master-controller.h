@@ -9,6 +9,7 @@
 #include <controllers/navigation-controller.h>
 #include <controllers/command-controller.h>
 #include <controllers/database-controller.h>
+#include <models/client-search.h>
 
 namespace cm {
 namespace controllers {
@@ -20,6 +21,7 @@ namespace controllers {
         Q_PROPERTY(cm::controllers::NavigationController* ui_navigationController READ navigationController CONSTANT)
         Q_PROPERTY(cm::controllers::CommandController* ui_commandController READ commandController CONSTANT)
         Q_PROPERTY(cm::controllers::DatabaseController* ui_databaseController READ databaseController CONSTANT)
+        Q_PROPERTY(cm::models::ClientSearch* ui_clientSearch READ clientSearch CONSTANT)
         Q_PROPERTY(cm::models::Client* ui_newClient READ newClient CONSTANT)
 
     public:
@@ -30,7 +32,11 @@ namespace controllers {
         DatabaseController* databaseController();
         NavigationController* navigationController();
         models::Client* newClient();
+        models::ClientSearch* clientSearch();
         const QString& welcomeMessage() const;
+
+    public slots:
+        void selectClient(cm::models::Client* client);
 
     private:
         class Implementation;

@@ -9,29 +9,46 @@
 #include <controllers/navigation-controller.h>
 #include <framework/command.h>
 #include <models/client.h>
+#include <models/client-search.h>
 
 namespace cm {
 namespace controllers {
     class CM_LIB_EXPORT CommandController : public QObject
     {
         Q_OBJECT
-        Q_PROPERTY( // This macro expects each keyword and value to appear on the same line
+        Q_PROPERTY(
             QQmlListProperty<cm::framework::Command> ui_createClientViewContextCommands
             READ ui_createClientViewContextCommands
+            CONSTANT
+        )
+        Q_PROPERTY(
+            QQmlListProperty<cm::framework::Command> ui_findClientViewContextCommands
+            READ ui_findClientViewContextCommands
+            CONSTANT
+        )
+        Q_PROPERTY(
+            QQmlListProperty<cm::framework::Command> ui_editClientViewContextCommands
+            READ ui_editClientViewContextCommands
             CONSTANT
         )
     public:
         explicit CommandController(
             QObject *_parent = nullptr,
             IDatabaseController *databaseController = nullptr,
-            models::Client *newClient = nullptr
+            models::Client *newClient = nullptr,
+            models::ClientSearch* clientSearch = nullptr
         );
         ~CommandController();
 
         QQmlListProperty<framework::Command> ui_createClientViewContextCommands();
+        QQmlListProperty<framework::Command> ui_findClientViewContextCommands();
+        QQmlListProperty<framework::Command> ui_editClientViewContextCommands();
 
     public slots:
         void onCreateClientSaveExecuted();
+        void onFindClientSearchExecuted();
+        void onEditClientSaveExecuted();
+        void setSelectedClient(cm::models::Client* client);
 
     private:
         class Implementation;

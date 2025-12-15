@@ -58,5 +58,10 @@ namespace models {
     void ClientSearch::search()
     {
         qDebug() << "Searching for " << implementation->searchText->value() << "...";
+
+        auto resultArray = implementation->databaseController->find("client", implementation->searchText->value());
+        implementation->searchResults->update(resultArray);
+
+        qDebug() << "Found " << implementation->searchResults->baseEntities().size() << " matches";
     }
 }}

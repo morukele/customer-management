@@ -14,10 +14,11 @@ namespace controllers {
             databaseController = new DatabaseController(masterController);
             navigationController = new NavigationController(masterController);
             newClient = new Client(masterController);
+            clientSearch = new ClientSearch(masterController, databaseController);
 
             // Initialise this last
             // --------------------
-            commandController = new CommandController(masterController, databaseController, newClient);
+            commandController = new CommandController(masterController, databaseController, newClient, clientSearch);
         }
 
         MasterController* masterController{nullptr};
@@ -25,6 +26,7 @@ namespace controllers {
         DatabaseController* databaseController{nullptr};
         NavigationController* navigationController{nullptr};
         Client* newClient{nullptr};
+        ClientSearch* clientSearch{nullptr};
         QString welcomeMessage = "Welcome to the Client Management system!";
     };
 
@@ -60,6 +62,15 @@ namespace controllers {
 
     Client* MasterController::newClient() {
         return implementation->newClient;
+    }
+
+    ClientSearch* MasterController::clientSearch() {
+        return implementation->clientSearch;
+    }
+
+    void MasterController::selectClient(Client* client)
+    {
+        implementation->navigationController->goEditClientView(client);
     }
 }}
 

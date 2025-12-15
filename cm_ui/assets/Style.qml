@@ -30,8 +30,6 @@ Item {
     readonly property real widthCommandButton: 80
     readonly property real heightCommandButton: widthCommandButton
 
-    readonly property real sizeScreenMargin: 20
-
     readonly property color colourDataControlsBackground: "#ffffff"
     readonly property color colourDataControlsFont: "#131313"
     readonly property int pixelSizeDataControls: 18
@@ -39,6 +37,7 @@ Item {
     readonly property real heightDataControls: 40
 
     readonly property real sizeControlSpacing: 10
+    readonly property real sizeScreenMargin: 20
 
     readonly property color colourPanelBackground: "#ffffff"
     readonly property color colourPanelBackgroundHover: "#ececec"

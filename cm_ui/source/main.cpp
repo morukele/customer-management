@@ -11,6 +11,7 @@
 #include <models/appointment.h>
 #include <models/client.h>
 #include <models/contact.h>
+#include <models/client-search.h>
 
 int main(int argc, char *argv[])
 {
@@ -36,6 +37,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<cm::models::Appointment>("CM", 1, 0, "Appointment");
     qmlRegisterType<cm::models::Client>("CM", 1, 0, "Client");
     qmlRegisterType<cm::models::Contact>("CM", 1, 0, "Contact");
+    qmlRegisterType<cm::models::ClientSearch>("CM", 1, 0, "ClientSearch");
 
     // command: register the command models and data types
     //----------------------------------------------------
