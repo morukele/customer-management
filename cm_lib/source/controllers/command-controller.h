@@ -10,6 +10,7 @@
 #include <framework/command.h>
 #include <models/client.h>
 #include <models/client-search.h>
+#include <networking/i-web-request.h>
 
 namespace cm {
 namespace controllers {
@@ -31,19 +32,26 @@ namespace controllers {
             READ ui_editClientViewContextCommands
             CONSTANT
         )
+        Q_PROPERTY(
+            QQmlListProperty<cm::framework::Command> ui_rssViewContextCommands
+            READ ui_rssViewContextCommands
+            CONSTANT
+        )
     public:
         explicit CommandController(
             QObject *_parent = nullptr,
             IDatabaseController *databaseController = nullptr,
             NavigationController *navigationController = nullptr,
             models::Client *newClient = nullptr,
-            models::ClientSearch* clientSearch = nullptr
+            models::ClientSearch* clientSearch = nullptr,
+            networking::IWebRequest* rssWebRequest = nullptr
         );
         ~CommandController();
 
         QQmlListProperty<framework::Command> ui_createClientViewContextCommands();
         QQmlListProperty<framework::Command> ui_findClientViewContextCommands();
         QQmlListProperty<framework::Command> ui_editClientViewContextCommands();
+        QQmlListProperty<framework::Command> ui_rssViewContextCommands();
 
     public slots:
         void onCreateClientSaveExecuted();
@@ -51,6 +59,7 @@ namespace controllers {
         void onEditClientSaveExecuted();
         void setSelectedClient(cm::models::Client* client);
         void onEditClientDeleteExecuted();
+        void onRssRefreshExecuted();
 
     private:
         class Implementation;

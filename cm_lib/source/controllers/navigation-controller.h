@@ -20,6 +20,7 @@ namespace controllers{
         void goDashboardView();
         void goEditClientView(cm::models::Client* client);
         void goFindClientView();
+        void goRssView();
     };
 }}
 

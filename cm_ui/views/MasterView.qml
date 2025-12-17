@@ -31,6 +31,10 @@ Window {
         function onGoFindClientView() {
             contentFrame.replace("qrc:/views/FindClientView.qml")
         }
+
+        function onGoRssView() {
+            contentFrame.replace("qrc:/views/RssView.qml")
+        }
     }
 
     NavigationBar {

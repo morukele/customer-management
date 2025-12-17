@@ -1,6 +1,9 @@
 #include <controllers/master-controller.h>
+#include <networking/network-access-manager.h>
+#include <networking/web-request.h>
 
 using namespace cm::models;
+using namespace cm::networking;
 
 namespace cm {
 namespace controllers {
@@ -15,11 +18,25 @@ namespace controllers {
             navigationController = new NavigationController(masterController);
             newClient = new Client(masterController);
             clientSearch = new ClientSearch(masterController, databaseController);
+            networkAccessManager = new NetworkAccessManager(masterController);
+            rssWebRequest = new WebRequest(masterController, networkAccessManager, QUrl("http://feeds.bbci.co.uk/news/rss.xml?edition=uk"));
 
             // Initialise this last
             // --------------------
             commandController = new CommandController(
-                masterController, databaseController, navigationController, newClient, clientSearch
+                masterController,
+                databaseController,
+                navigationController,
+                newClient,
+                clientSearch,
+                rssWebRequest
+            );
+
+            QObject::connect(
+                rssWebRequest,
+                &WebRequest::requestComplete,
+                masterController,
+                &MasterController::onRssReplyReceived
             );
         }
 
@@ -29,6 +46,8 @@ namespace controllers {
         NavigationController* navigationController{nullptr};
         Client* newClient{nullptr};
         ClientSearch* clientSearch{nullptr};
+        NetworkAccessManager* networkAccessManager{nullptr};
+        WebRequest* rssWebRequest{nullptr};
         QString welcomeMessage = "Welcome to the Client Management system!";
     };
 
@@ -73,6 +92,12 @@ namespace controllers {
     void MasterController::selectClient(Client* client)
     {
         implementation->navigationController->goEditClientView(client);
+    }
+
+    void MasterController::onRssReplyReceived(int statusCode, QByteArray body)
+    {
+        qDebug() << "Received RSS request response code " << statusCode << ":";
+        qDebug() << body;
     }
 }}
 

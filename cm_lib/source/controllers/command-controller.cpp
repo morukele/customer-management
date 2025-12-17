@@ -5,6 +5,7 @@
 
 using namespace cm::framework;
 using namespace cm::models;
+using namespace cm::networking;
 
 namespace cm {
 namespace controllers {
@@ -16,11 +17,13 @@ namespace controllers {
             IDatabaseController* _databaseController,
             NavigationController* _navigationController,
             Client* _newClient,
-            ClientSearch* _clientSearch
+            ClientSearch* _clientSearch,
+            IWebRequest* _rssWebRequest
         )
             : navigationController(_navigationController)
             , commandController(_commandController)
             , databaseController(_databaseController)
+            , rssWebRequest(_rssWebRequest)
             , newClient(_newClient)
             , clientSearch(_clientSearch)
         {
@@ -57,32 +60,44 @@ namespace controllers {
                 commandController,
                 &CommandController::onEditClientDeleteExecuted
             );
-
             editClientSaveCommands.append(editClientSaveCommand);
             editClientSaveCommands.append(editClientDeleteCommand);
+
+            Command* rssRefreshCommand = new Command(commandController, QChar(0xf021), "Refresh");
+            QObject::connect(
+                rssRefreshCommand,
+                &Command::executed,
+                commandController,
+                &CommandController::onRssRefreshExecuted
+            );
+            rssViewContextCommands.append(rssRefreshCommand);
         }
 
-        QList<Command*> createClientViewContextCommands{};
-        QList<Command*> findClientSearchCommands{};
-        QList<Command*> editClientSaveCommands{};
-        NavigationController* navigationController{nullptr};
         CommandController* commandController{nullptr};
-        IDatabaseController *databaseController{nullptr};
+
+        IDatabaseController* databaseController{nullptr};
+        NavigationController* navigationController{nullptr};
         Client* newClient{nullptr};
         Client* selectedClient{nullptr};
         ClientSearch* clientSearch{nullptr};
+        IWebRequest* rssWebRequest{nullptr};
+        QList<Command*> createClientViewContextCommands{};
+        QList<Command*> findClientSearchCommands{};
+        QList<Command*> editClientSaveCommands{};
+        QList<Command*> rssViewContextCommands{};
     };
 
     CommandController::CommandController(QObject *parent,
         IDatabaseController* databaseController,
         NavigationController* navigationController,
         Client* newClient,
-        ClientSearch* clientSearch
+        ClientSearch* clientSearch,
+        IWebRequest* rssWebRequest
     )
         : QObject{parent}
     {
         implementation.reset(
-            new Implementation(this, databaseController, navigationController, newClient, clientSearch)
+            new Implementation(this, databaseController, navigationController, newClient, clientSearch, rssWebRequest)
         );
     }
 
@@ -103,6 +118,11 @@ namespace controllers {
     QQmlListProperty<Command> CommandController::ui_editClientViewContextCommands()
     {
         return QQmlListProperty<Command>(this, &implementation->editClientSaveCommands);
+    }
+
+    QQmlListProperty<Command> CommandController::ui_rssViewContextCommands()
+    {
+        return QQmlListProperty<Command>(this, &implementation->rssViewContextCommands);
     }
 
     void CommandController::onCreateClientSaveExecuted()
@@ -162,5 +182,15 @@ namespace controllers {
 
         implementation->clientSearch->search();
         implementation->navigationController->goDashboardView();
+    }
+
+    void CommandController::onRssRefreshExecuted()
+    {
+        qDebug() << "You executed RSS Refresh command!";
+        qDebug() << "About to call execute(), rssWebRequest is: " << implementation->rssWebRequest;
+
+        implementation->rssWebRequest->execute();
+
+        qDebug() << "Execute called, isBusy: " << implementation->rssWebRequest->isBusy();
     }
 }}

@@ -37,6 +37,7 @@ namespace controllers {
 
     public slots:
         void selectClient(cm::models::Client* client);
+        void onRssReplyReceived(int statusCode, QByteArray body);
 
     private:
         class Implementation;
