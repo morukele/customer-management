@@ -2,7 +2,7 @@ include(../qmake-target-platform.pri)
 include(../qmake-destination-path.pri)
 
 QT -= gui
-QT += sql
+QT += sql network
 
 TARGET = cm-lib
 TEMPLATE = lib
@@ -32,7 +32,9 @@ SOURCES += \
     source/models/client-search.cpp \
     source/models/client.cpp \
     cm_lib.cpp \
-    source/models/contact.cpp
+    source/models/contact.cpp \
+    source/networking/network-access-manager.cpp \
+    source/networking/web-request.cpp
 
 HEADERS += \
     source/controllers/command-controller.h \
@@ -55,7 +57,11 @@ HEADERS += \
     source/models/client.h \
     source/cm_lib_global.h \
     cm_lib.h \
-    source/models/contact.h
+    source/models/contact.h \
+    source/networking/i-network-access-manager.h \
+    source/networking/i-web-request.h \
+    source/networking/network-access-manager.h \
+    source/networking/web-request.h
 
 # Default rules for deployment.
 unix {

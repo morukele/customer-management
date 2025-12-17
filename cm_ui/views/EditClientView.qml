@@ -6,6 +6,7 @@ import CM 1.0
 
 Item {
     property Client selectedClient
+
     Component.onCompleted: masterController.ui_commandController.setSelectedClient(selectedClient)
 
     Rectangle {

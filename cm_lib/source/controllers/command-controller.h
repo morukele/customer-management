@@ -35,6 +35,7 @@ namespace controllers {
         explicit CommandController(
             QObject *_parent = nullptr,
             IDatabaseController *databaseController = nullptr,
+            NavigationController *navigationController = nullptr,
             models::Client *newClient = nullptr,
             models::ClientSearch* clientSearch = nullptr
         );
@@ -49,6 +50,7 @@ namespace controllers {
         void onFindClientSearchExecuted();
         void onEditClientSaveExecuted();
         void setSelectedClient(cm::models::Client* client);
+        void onEditClientDeleteExecuted();
 
     private:
         class Implementation;

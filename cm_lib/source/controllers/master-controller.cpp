@@ -18,7 +18,9 @@ namespace controllers {
 
             // Initialise this last
             // --------------------
-            commandController = new CommandController(masterController, databaseController, newClient, clientSearch);
+            commandController = new CommandController(
+                masterController, databaseController, navigationController, newClient, clientSearch
+            );
         }
 
         MasterController* masterController{nullptr};
