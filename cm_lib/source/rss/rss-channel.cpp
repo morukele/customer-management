@@ -1,5 +1,15 @@
 #include "rss-channel.h"
+#include <QtXml/QDomDocument>
 
-RssChannel::RssChannel(QObject *parent)
-    : QObject{parent}
-{}
+namespace cm {
+namespace rss {
+
+    class RssChannel::Implementation
+    {
+
+    };
+
+    RssChannel::RssChannel(QObject *parent, const QDomNode& domNode)
+        : QObject{parent}
+    {}
+}}
