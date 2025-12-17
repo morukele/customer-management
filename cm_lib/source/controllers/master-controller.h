@@ -10,6 +10,7 @@
 #include <controllers/command-controller.h>
 #include <controllers/database-controller.h>
 #include <models/client-search.h>
+#include <models/client.h>
 
 namespace cm {
 namespace controllers {

@@ -1,7 +1,7 @@
 include(../qmake-target-platform.pri)
 include(../qmake-destination-path.pri)s
 
-QT += qml quick
+QT += qml quick xml
 
 CONFIG += c++14
 

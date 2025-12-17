@@ -26,9 +26,14 @@ namespace networking {
 
     bool NetworkAccessManager::isNetworkAccessible() const
     {
-        // since we are querying with this function we don't need to store it in the pImpl
-        auto *netInfo = QNetworkInformation::instance();
-        return netInfo && netInfo->reachability() ==
-               QNetworkInformation::Reachability::Online;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 1, 0)
+        if (auto* info = QNetworkInformation::instance()) {
+            return info->reachability() != QNetworkInformation::Reachability::Disconnected;
+        }
+        return true;
+#else
+        return implementation->networkAccessManager.networkAccessible() ==
+               QNetworkAccessManager::Accessible;
+#endif
     }
 }}

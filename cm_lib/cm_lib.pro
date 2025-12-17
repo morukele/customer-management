@@ -2,7 +2,7 @@ include(../qmake-target-platform.pri)
 include(../qmake-destination-path.pri)
 
 QT -= gui
-QT += sql network
+QT += sql network xml
 
 TARGET = cm-lib
 TEMPLATE = lib
@@ -34,7 +34,11 @@ SOURCES += \
     cm_lib.cpp \
     source/models/contact.cpp \
     source/networking/network-access-manager.cpp \
-    source/networking/web-request.cpp
+    source/networking/web-request.cpp \
+    source/rss/rss-channel.cpp \
+    source/rss/rss-image.cpp \
+    source/rss/rss-item.cpp \
+    source/utilities/xml-helper.cpp
 
 HEADERS += \
     source/controllers/command-controller.h \
@@ -61,7 +65,11 @@ HEADERS += \
     source/networking/i-network-access-manager.h \
     source/networking/i-web-request.h \
     source/networking/network-access-manager.h \
-    source/networking/web-request.h
+    source/networking/web-request.h \
+    source/rss/rss-channel.h \
+    source/rss/rss-image.h \
+    source/rss/rss-item.h \
+    source/utilities/xml-helper.h
 
 # Default rules for deployment.
 unix {
