@@ -12,6 +12,9 @@
 #include <models/client.h>
 #include <models/contact.h>
 #include <models/client-search.h>
+#include <rss/rss-channel.h>
+#include <rss/rss-image.h>
+#include <rss/rss-item.h>
 
 int main(int argc, char *argv[])
 {
@@ -42,6 +45,12 @@ int main(int argc, char *argv[])
     // command: register the command models and data types
     //----------------------------------------------------
     qmlRegisterType<cm::framework::Command>("CM", 1, 0, "Command");
+
+    // rss: register the rss models and data type
+    //-------------------------------------------
+    qmlRegisterType<cm::rss::RssChannel>("CM", 1, 0, "RssChannel");
+    qmlRegisterType<cm::rss::RssImage>("CM", 1, 0, "RssImage");
+    qmlRegisterType<cm::rss::RssItem>("CM", 1, 0, "RssItem");
 
     cm::controllers::MasterController masterController;
 

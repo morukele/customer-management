@@ -1,11 +1,11 @@
 #ifndef RSS_CHANNEL_H
 #define RSS_CHANNEL_H
 
-#include <QObject>
 #include <QDateTime>
 #include <QtXml/QDomElement>
 #include <QtXml/QDomNode>
 #include <QList>
+#include <QObject>
 #include <QtQml/QQmlListProperty>
 #include <QString>
 
@@ -15,28 +15,35 @@
 
 namespace cm {
 namespace rss {
-    class RssChannel : public QObject
-    {
-        Q_OBJECT
-    public:
-        RssChannel(QObject *parent = nullptr, const QDomNode& domNode = QDomNode());
-        ~RssChannel();
 
-        void addItem(RssItem* item);
-        const QString& description() const;
-        RssImage* image() const;
-        const QList<RssItem*>& items() const;
-        const QString& link() const;
-        void setImage(RssImage* image);
-        const QString& title() const;
-        QQmlListProperty<RssItem> ui_items();
+class CM_LIB_EXPORT RssChannel : public QObject
+{
+    Q_OBJECT
+    Q_PROPERTY(QString ui_description READ description CONSTANT)
+    Q_PROPERTY(cm::rss::RssImage* ui_image READ image CONSTANT)
+    Q_PROPERTY(QQmlListProperty<cm::rss::RssItem> ui_items READ ui_items CONSTANT)
+    Q_PROPERTY(QString ui_link READ link CONSTANT)
+    Q_PROPERTY(QString ui_title READ title CONSTANT)
 
-        static RssChannel* fromXml(const QByteArray& xmlData, QObject* parent = nullptr);
+public:
+    RssChannel(QObject* parent = nullptr, const QDomNode& domNode = QDomNode());
+    ~RssChannel();
 
-    private:
-        class Implementation;
-        QScopedPointer<Implementation> implementation;
-    };
+    void addItem(RssItem* item);
+    const QString& description() const;
+    RssImage* image() const;
+    const QList<RssItem*>& items() const;
+    const QString& link() const;
+    void setImage(RssImage* image);
+    const QString& title() const;
+    QQmlListProperty<RssItem> ui_items();
+
+    static RssChannel* fromXml(const QByteArray& xmlData, QObject* parent = nullptr);
+
+private:
+    class Implementation;
+    QScopedPointer<Implementation> implementation;
+};
 
 }}
 

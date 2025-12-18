@@ -4,6 +4,7 @@
 
 using namespace cm::models;
 using namespace cm::networking;
+using namespace cm::rss;
 
 namespace cm {
 namespace controllers {
@@ -19,7 +20,7 @@ namespace controllers {
             newClient = new Client(masterController);
             clientSearch = new ClientSearch(masterController, databaseController);
             networkAccessManager = new NetworkAccessManager(masterController);
-            rssWebRequest = new WebRequest(masterController, networkAccessManager, QUrl("http://feeds.bbci.co.uk/news/rss.xml?edition=uk"));
+            rssWebRequest = new WebRequest(masterController, networkAccessManager, QUrl("https://rss.nytimes.com/services/xml/rss/nyt/World.xml"));
 
             // Initialise this last
             // --------------------
@@ -48,6 +49,7 @@ namespace controllers {
         ClientSearch* clientSearch{nullptr};
         NetworkAccessManager* networkAccessManager{nullptr};
         WebRequest* rssWebRequest{nullptr};
+        RssChannel* rssChannel{nullptr};
         QString welcomeMessage = "Welcome to the Client Management system!";
     };
 
@@ -97,7 +99,21 @@ namespace controllers {
     void MasterController::onRssReplyReceived(int statusCode, QByteArray body)
     {
         qDebug() << "Received RSS request response code " << statusCode << ":";
-        qDebug() << body;
+
+        // clear exisiting RSS channel
+        if (implementation->rssChannel) {
+            implementation->rssChannel->deleteLater();
+            implementation->rssChannel = nullptr;
+            emit rssChannelChanged();
+        }
+
+        implementation->rssChannel = RssChannel::fromXml(body, this);
+        emit rssChannelChanged();
+    }
+
+    RssChannel* MasterController::rssChannel()
+    {
+        return implementation->rssChannel;
     }
 }}
 
