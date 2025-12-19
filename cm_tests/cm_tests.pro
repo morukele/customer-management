@@ -1,7 +1,7 @@
 include(../qmake-target-platform.pri)
 include(../qmake-destination-path.pri)s
 
-QT += testlib
+QT += testlib network
 QT -= gui
 
 CONFIG += qt console warn_on depend_includepath testcase
@@ -39,5 +39,6 @@ HEADERS += source \
     source/data/enumerator-decorator-tests.h \
     source/data/int-decorator-tests.h \
     source/data/string-decorator-tests.h \
+    source/mocks/mock-object-factory.h \
     source/models/client-tests.h \
     source/test-suite.h

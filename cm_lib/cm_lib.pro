@@ -22,11 +22,14 @@ SOURCES += \
     source/controllers/master-controller.cpp \
     source/data/data-decorator.cpp \
     source/data/date-time-decorator.cpp \
+    source/data/dropdown-value.cpp \
+    source/data/dropdown.cpp \
     source/data/entity.cpp \
     source/data/enumerator-decorator.cpp \
     source/data/int-decorator.cpp \
     source/data/string-decorator.cpp \
     source/framework/command.cpp \
+    source/framework/object-factory.cpp \
     source/models/address.cpp \
     source/models/appointment.cpp \
     source/models/client-search.cpp \
@@ -49,12 +52,16 @@ HEADERS += \
     source/controllers/navigation-controller.h \
     source/data/data-decorator.h \
     source/data/date-time-decorator.h \
+    source/data/dropdown-value.h \
+    source/data/dropdown.h \
     source/data/entity-collection.h \
     source/data/entity.h \
     source/data/enumerator-decorator.h \
     source/data/int-decorator.h \
     source/data/string-decorator.h \
     source/framework/command.h \
+    source/framework/i-object-factory.h \
+    source/framework/object-factory.h \
     source/models/address.h \
     source/models/appointment.h \
     source/models/client-search.h \

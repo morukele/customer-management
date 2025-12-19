@@ -5,6 +5,7 @@
 using namespace cm::models;
 using namespace cm::networking;
 using namespace cm::rss;
+using namespace cm::framework;
 
 namespace cm {
 namespace controllers {
@@ -42,6 +43,7 @@ namespace controllers {
         }
 
         MasterController* masterController{nullptr};
+        IObjectFactory* objectFactory{nullptr};
         CommandController* commandController{nullptr};
         DatabaseController* databaseController{nullptr};
         NavigationController* navigationController{nullptr};

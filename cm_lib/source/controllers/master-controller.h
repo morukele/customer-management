@@ -12,6 +12,7 @@
 #include <models/client-search.h>
 #include <models/client.h>
 #include <rss/rss-channel.h>
+#include <framework/i-object-factory.h>
 
 namespace cm {
 namespace controllers {

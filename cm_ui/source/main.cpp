@@ -15,6 +15,8 @@
 #include <rss/rss-channel.h>
 #include <rss/rss-image.h>
 #include <rss/rss-item.h>
+#include <data/dropdown.h>
+#include <data/dropdown-value.h>
 
 int main(int argc, char *argv[])
 {
@@ -41,6 +43,9 @@ int main(int argc, char *argv[])
     qmlRegisterType<cm::models::Client>("CM", 1, 0, "Client");
     qmlRegisterType<cm::models::Contact>("CM", 1, 0, "Contact");
     qmlRegisterType<cm::models::ClientSearch>("CM", 1, 0, "ClientSearch");
+
+    qmlRegisterType<cm::data::DropDown>("CM", 1, 0, "DropDown");
+    qmlRegisterType<cm::data::DropDownValue>("CM", 1, 0, "DropDownValue");
 
     // command: register the command models and data types
     //----------------------------------------------------

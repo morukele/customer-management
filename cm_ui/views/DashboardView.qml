@@ -7,7 +7,9 @@ Item {
         color: Style.colourBackground
         Text {
             anchors.centerIn: parent
-            text: qsTr("Dashboard View")
+            text: qsTr("Client Management System")
+            color: Style.colourDataControlsFont
+            font.pixelSize: Style.pixelSizeDataControls
         }
     }
 }

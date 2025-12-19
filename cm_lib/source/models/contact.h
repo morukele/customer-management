@@ -5,6 +5,7 @@
 #include <data/string-decorator.h>
 #include <data/enumerator-decorator.h>
 #include <data/entity.h>
+#include <data/dropdown.h>
 
 #include <cm_lib_global.h>
 
@@ -16,6 +17,7 @@ class CM_LIB_EXPORT Contact : public data::Entity
         Q_OBJECT
         Q_PROPERTY(cm::data::EnumeratorDecorator* ui_contactType MEMBER contactType CONSTANT)
         Q_PROPERTY(cm::data::StringDecorator* ui_address MEMBER address CONSTANT)
+        Q_PROPERTY(cm::data::DropDown* ui_contactTypeDropDown MEMBER contactTypeDropDown CONSTANT)
 
     public:
         enum eContactType {
@@ -31,6 +33,8 @@ class CM_LIB_EXPORT Contact : public data::Entity
 
         data::EnumeratorDecorator* contactType{nullptr};
         data::StringDecorator* address{nullptr};
+        data::DropDown* contactTypeDropDown{nullptr};
+
         static std::map<int, QString> contactTypeMapper;
 
     signals:

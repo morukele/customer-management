@@ -40,6 +40,9 @@ namespace models {
     signals:
         void appointmentsChanged();
         void contactsChanged();
+
+    public slots:
+        void addContact();
     };
 }}
 

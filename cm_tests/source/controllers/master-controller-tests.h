@@ -5,6 +5,7 @@
 
 #include <test-suite.h>
 #include <controllers/master-controller.h>
+#include <mocks/mock-object-factory.h>
 
 namespace cm {
 namespace controllers {
@@ -29,7 +30,7 @@ namespace controllers {
         void welcomeMessage_returnsCorrectMessage();
 
     private:
-        MasterController masterController;
+        MasterController masterController{nullptr};
     };
 }}
 

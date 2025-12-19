@@ -45,6 +45,12 @@ Item {
             address: newClient.ui_billingAddress
             headerText: "Billing Address"
         }
+
+        ContactsEditor {
+            width: ScrollView.width
+            client: newClient
+            headerText: "Contact Details"
+        }
     }
 
     CommandBar {
